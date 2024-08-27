@@ -1,0 +1,4 @@
+.DrawingModeSwitch-container {
+  display: flex;
+  flex-direction: row;
+}
