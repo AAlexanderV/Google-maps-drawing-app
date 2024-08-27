@@ -1,4 +1,5 @@
-import { ManagementTableState } from '..';
+import { ManagementTableState } from '.';
+import { useDraftManager } from '../../context/DraftContext';
 import './styles.css';
 
 type Props = {
@@ -12,6 +13,9 @@ export default function ManagementHeader({
   managementTableState,
   setManagementState,
 }: Props) {
+  const { createInitialPolygonDraft, createInitialMarkerDraft } =
+    useDraftManager();
+
   const isPolygonMode = managementTableState === ManagementTableState.POLYGON;
 
   const polygonsButtonClassName = isPolygonMode
@@ -41,7 +45,11 @@ export default function ManagementHeader({
       </div>
 
       <div className="buttonsContainer">
-        <button>Add {isPolygonMode ? 'polygon' : 'marker'}</button>
+        {isPolygonMode ? (
+          <button onClick={createInitialPolygonDraft}>Add polygon</button>
+        ) : (
+          <button onClick={createInitialMarkerDraft}>Add marker</button>
+        )}
       </div>
     </div>
   );

@@ -54,6 +54,8 @@ export const MapOverlaysContextProvider = (props: Props) => {
   );
 };
 
+export const useOverlays = () => useContext(MapOverlaysContext).overlays;
+
 export const useMarkers = () => {
   const { overlays } = useContext(MapOverlaysContext);
 

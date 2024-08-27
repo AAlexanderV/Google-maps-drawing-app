@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ManagementHeader from './ManagementHeader';
 import ManagementContent from './ManagementContent';
 import { useDispatchOverlays } from '../../context/MapOverlaysContext';
+import { DraftContextProvider } from '../../context/DraftContext';
 
 export enum ManagementTableState {
   POLYGON = 'POLYGON',
@@ -24,7 +25,6 @@ export default function ManagementTable() {
       { lat: 25.774, lng: -80.19 },
       { lat: 18.466, lng: -66.118 },
       { lat: 32.321, lng: -64.757 },
-      // { lat: 25.774, lng: -80.19 },
     ];
 
     createPolygon(map, triangleCoords, dispatchOverlays);
@@ -45,9 +45,10 @@ export default function ManagementTable() {
       <button onClick={addPolygonTest}>Add Polygon</button>
       <button onClick={addMarkerTest}>Add Marker</button>
 
-      <ManagementHeader {...{ managementTableState, setManagementState }} />
-
-      <ManagementContent {...{ managementTableState }} />
+      <DraftContextProvider>
+        <ManagementHeader {...{ managementTableState, setManagementState }} />
+        <ManagementContent {...{ managementTableState }} />
+      </DraftContextProvider>
     </div>
   );
 }
