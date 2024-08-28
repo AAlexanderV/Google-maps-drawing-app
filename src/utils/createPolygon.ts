@@ -1,8 +1,8 @@
-import { Action, DrawResult, DrawingActionKind } from '../types';
+import { Action, DrawResult, DrawingActionKind, Position } from '../types';
 
 export function createPolygon(
   map: google.maps.Map | null,
-  paths: google.maps.LatLngLiteral[],
+  paths: Position[],
   dispatch: React.Dispatch<Action>,
 ) {
   const polygon = new google.maps.Polygon({

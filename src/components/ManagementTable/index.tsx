@@ -7,6 +7,7 @@ import ManagementHeader from './ManagementHeader';
 import ManagementContent from './ManagementContent';
 import { useDispatchOverlays } from '../../context/MapOverlaysContext';
 import { DraftContextProvider } from '../../context/DraftContext';
+import { Position } from '../../types';
 
 export enum ManagementTableState {
   POLYGON = 'POLYGON',
@@ -21,22 +22,22 @@ export default function ManagementTable() {
     useState<ManagementTableState>(ManagementTableState.POLYGON);
 
   const addPolygonTest = () => {
-    const triangleCoords: google.maps.LatLngLiteral[] = [
+    const triangleCoords: Position[] = [
       { lat: 25.774, lng: -80.19 },
       { lat: 18.466, lng: -66.118 },
       { lat: 32.321, lng: -64.757 },
     ];
 
-    createPolygon(map, triangleCoords, dispatchOverlays);
+    // createPolygon(map, triangleCoords, dispatchOverlays);
   };
 
   const addMarkerTest = () => {
-    const coords: google.maps.LatLngLiteral = {
+    const coords: Position = {
       lat: 25.774,
       lng: -80.19,
     };
 
-    createMarker(map, coords, dispatchOverlays);
+    // createMarker(map, coords, dispatchOverlays);
   };
 
   return (

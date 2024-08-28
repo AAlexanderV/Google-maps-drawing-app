@@ -1,8 +1,8 @@
-import { Action, DrawingActionKind, DrawResult } from '../types';
+import { Action, DrawingActionKind, DrawResult, Position } from '../types';
 
 export function createMarker(
   map: google.maps.Map | null,
-  position: google.maps.LatLngLiteral,
+  [position]: Position[],
   dispatch: React.Dispatch<Action>,
 ) {
   const marker = new google.maps.Marker({

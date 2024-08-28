@@ -1,3 +1,7 @@
+export type Position = google.maps.LatLngLiteral;
+
+export type PositionStringified = { lat: string; lng: string };
+
 export type OverlayGeometry = google.maps.Marker | google.maps.Polygon;
 
 export interface DrawResult {
@@ -7,8 +11,8 @@ export interface DrawResult {
 
 export interface Snapshot {
   radius?: number;
-  center?: google.maps.LatLngLiteral;
-  position?: google.maps.LatLngLiteral;
+  center?: Position;
+  position?: Position;
   path?: Array<google.maps.LatLng>;
   bounds?: google.maps.LatLngBoundsLiteral;
 }

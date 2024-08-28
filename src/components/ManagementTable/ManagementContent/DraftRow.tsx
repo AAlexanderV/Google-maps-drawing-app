@@ -1,6 +1,16 @@
-import { Action } from '../../../types';
+import { Action, PositionStringified } from '../../../types';
 import { useDraftManager } from '../../../context/DraftContext';
 import { useState } from 'react';
+import CoordinatesDraftInput from './CoordinatesDraftInput';
+import {
+  covertDraftPointsToNumberCoordinates,
+  getMarkerInitialValue,
+  getPolygonInitialValue,
+  validateDraft,
+} from './utils';
+import { createPolygon } from '../../../utils/createPolygon';
+import { useMap } from '@vis.gl/react-google-maps';
+import { createMarker } from '../../../utils/createMarker';
 
 type Props = {
   isPolygonMode: boolean;
@@ -8,10 +18,18 @@ type Props = {
 };
 
 export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
-  const [points, setPoints] = useState([{ lat: 0, lng: 0 }]);
+  const [markerDraftPoints, setMarkerDraftPoints] = useState<
+    PositionStringified[]
+  >(getMarkerInitialValue);
+
+  const [polygonDraftPoints, setPolygonDraftPoints] = useState<
+    PositionStringified[]
+  >(getPolygonInitialValue);
 
   const { markerDraft, polygonDraft, setPolygonDraft, setMarkerDraft } =
     useDraftManager();
+
+  const map = useMap();
 
   const isDraftEmpty: boolean = isPolygonMode ? !polygonDraft : !markerDraft;
 
@@ -21,114 +39,66 @@ export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
 
   if (isDraftEmpty) return null;
 
-  const appliedFigureDraft = isPolygonMode ? polygonDraft : markerDraft;
-  const appliedName = appliedFigureDraft?.name;
-  const appliedCoordinates = appliedFigureDraft?.coordinates;
+  const appliedDraftName = (isPolygonMode ? polygonDraft : markerDraft) ?? '';
 
-  const appliedDraftSetter = isPolygonMode ? setPolygonDraft : setMarkerDraft;
+  const appliedDraftPoints = isPolygonMode
+    ? polygonDraftPoints
+    : markerDraftPoints;
 
-  const handleConfirm = () => {};
+  const appliedDraftNameSetter = isPolygonMode
+    ? setPolygonDraft
+    : setMarkerDraft;
 
-  const handleRemove = () => {};
+  const appliedDraftPointsSetter = isPolygonMode
+    ? setPolygonDraftPoints
+    : setMarkerDraftPoints;
+
+  const overlayCreationFunction = isPolygonMode ? createPolygon : createMarker;
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newDraft = { ...appliedFigureDraft, name: e.target.value };
-    appliedDraftSetter(newDraft);
+    appliedDraftNameSetter(e.target.value);
   };
 
-  const handleCoordinatesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newDraft = { ...appliedFigureDraft, coordinates: e.target.value };
-    appliedDraftSetter(newDraft);
+  const handleConfirmDraft = () => {
+    const isValid = validateDraft(isPolygonMode, appliedDraftPoints);
+    if (!isValid) {
+      console.log('Sorry, your Draft is not valid.');
+      return;
+    }
+
+    const appliedCoordinates =
+      covertDraftPointsToNumberCoordinates(appliedDraftPoints);
+
+    overlayCreationFunction(map, appliedCoordinates, dispatchOverlays);
+    removeDraft();
   };
 
-  // ////////////////
-  const handleAddPoint = () => {
-    setPoints([...points, { lat: 0, lng: 0 }]);
+  const removeDraft = () => {
+    appliedDraftNameSetter(null);
+    appliedDraftPointsSetter(
+      isPolygonMode ? getPolygonInitialValue() : getMarkerInitialValue(),
+    );
   };
-
-  const handlePointChange = (
-    index: number,
-    field: 'lat' | 'lng',
-    value: number,
-  ) => {
-    const newPoints = [...points];
-    newPoints[index][field] = value;
-    setPoints(newPoints);
-  };
-
-  const handleRemovePoint = (index: number) => {
-    const newPoints = points.filter((_, i) => i !== index);
-    setPoints(newPoints);
-  };
-
-  const handleSaveCoordinates = () => {};
-
-  const handleCancelCoordinates = () => {};
 
   return (
     <tr>
       <td>
-        <input value={appliedName} onChange={handleNameChange} />
+        <input value={appliedDraftName} onChange={handleNameChange} />
+      </td>
+      <td>
+        <CoordinatesDraftInput
+          isPolygonMode={isPolygonMode}
+          points={appliedDraftPoints}
+          setDraftName={appliedDraftNameSetter}
+          setDraftPoints={appliedDraftPointsSetter}
+        />
       </td>
       <td>
         <div>
-          <input
-            value={appliedCoordinates}
-            onChange={handleCoordinatesChange}
-          />
-
-          <div className="accordion-content">
-            {points.map((point, index) => (
-              <div className="point-row" key={index}>
-                <div className="drag-handle">::</div>
-                <input
-                  className="coordinate-input"
-                  type="number"
-                  value={point.lat}
-                  onChange={(e) =>
-                    handlePointChange(index, 'lat', Number(e.target.value))
-                  }
-                />
-                <input
-                  className="coordinate-input"
-                  type="number"
-                  value={point.lng}
-                  onChange={(e) =>
-                    handlePointChange(index, 'lng', Number(e.target.value))
-                  }
-                />
-                <button
-                  className="remove-button"
-                  onClick={() => handleRemovePoint(index)}
-                >
-                  ✖️
-                </button>
-              </div>
-            ))}
-            <button className="add-point-button" onClick={handleAddPoint}>
-              + Add point
-            </button>
-
-            <div className="action-buttons">
-              <button
-                className="cancel-button"
-                onClick={handleCancelCoordinates}
-              >
-                Cancel
-              </button>
-              <button className="save-button" onClick={handleSaveCoordinates}>
-                Save and apply
-              </button>
-            </div>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div>
-          <button onClick={handleConfirm} className="confirm-button">
+          <button onClick={handleConfirmDraft} className="confirm-button">
             ✔️
           </button>
-          <button onClick={handleRemove} className="close-button">
+          <button onClick={removeDraft} className="close-button">
             ❌
           </button>
         </div>
