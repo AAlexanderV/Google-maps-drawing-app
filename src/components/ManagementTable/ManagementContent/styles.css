@@ -61,3 +61,29 @@
 .options-menu button:hover {
   background-color: #f0f0f0;
 }
+
+/* CoordinatesDraftInput */
+.CoordinatesDraftInput-container {
+  position: relative;
+}
+
+.button-accordion-toggle {
+}
+
+.accordion-wrapper {
+  position: absolute;
+  top: 30px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion-wrapper.isVisible {
+  max-height: 500px;
+  transition: max-height 0.2s ease-in;
+}
+
+.accordion-content {
+  padding: 10px 20px;
+  background-color: #fff;
+}

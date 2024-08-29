@@ -1,4 +1,26 @@
 .DrawingModeSwitch-container {
   display: flex;
   flex-direction: row;
+  padding-bottom: 40px;
+}
+
+.mapButton {
+  width: 150px;
+  height: 40px;
+  background-color: #fff;
+  border: none;
+  border-radius: 2px;
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.mapButton.active {
+  background-color: #f1daff;
+}
+
+.mapButton:hover {
+  background-color: #f1daff;
 }

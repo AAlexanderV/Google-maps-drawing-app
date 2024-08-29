@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Action, DrawingActionKind, Overlay } from '../../../types';
 import { extractCoordinates } from './utils';
+import './styles.css';
 
 type Props = {
   overlay: Overlay;

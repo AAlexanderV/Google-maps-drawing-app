@@ -26,29 +26,44 @@ export default function ManagementHeader({
     ? 'navButton active'
     : 'navButton';
 
+  const polygonsButtonText = 'Polygons management';
+  const markersButtonText = 'Markers management';
+
   return (
     <div className="ManagementHeader-container">
       <div className="buttonsContainer">
         <button
           className={polygonsButtonClassName}
           onClick={() => setManagementState(ManagementTableState.POLYGON)}
+          data-text={polygonsButtonText}
         >
-          Polygons management
+          {polygonsButtonText}
         </button>
 
         <button
           className={markersButtonClassName}
           onClick={() => setManagementState(ManagementTableState.MARKER)}
+          data-text={markersButtonText}
         >
-          Markers management
+          {markersButtonText}
         </button>
       </div>
 
       <div className="buttonsContainer">
         {isPolygonMode ? (
-          <button onClick={createInitialPolygonDraft}>Add polygon</button>
+          <button
+            onClick={createInitialPolygonDraft}
+            className="addOverlayButton"
+          >
+            + Add polygon
+          </button>
         ) : (
-          <button onClick={createInitialMarkerDraft}>Add marker</button>
+          <button
+            onClick={createInitialMarkerDraft}
+            className="addOverlayButton"
+          >
+            + Add marker
+          </button>
         )}
       </div>
     </div>

@@ -1,21 +1,45 @@
+import { useState } from 'react';
 import './styles.css';
+import { ManagementTableState } from '../ManagementTable';
 
 type Props = {
   drawingManager: google.maps.drawing.DrawingManager | null;
 };
 
-export default function DrawingModeSwitchComponent({ drawingManager }: Props) {
-  const setMarkerMode = () =>
-    drawingManager?.setDrawingMode(google.maps.drawing.OverlayType.MARKER);
+const polygonMode = ManagementTableState.POLYGON;
+const markerMode = ManagementTableState.MARKER;
 
-  const setPolygonMode = () =>
+export default function DrawingModeSwitchComponent({ drawingManager }: Props) {
+  const [drawingModeLocal, setDrawingModeLocal] =
+    useState<ManagementTableState>(polygonMode);
+
+  const isPolygonMode = drawingModeLocal === polygonMode;
+
+  const setMarkerMode = () => {
+    drawingManager?.setDrawingMode(google.maps.drawing.OverlayType.MARKER);
+    setDrawingModeLocal(markerMode);
+  };
+
+  const setPolygonMode = () => {
     drawingManager?.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+    setDrawingModeLocal(polygonMode);
+  };
 
   return (
     <div className="DrawingModeSwitch-container">
-      <button onClick={setPolygonMode}>Draw polygon</button>
+      <button
+        onClick={setPolygonMode}
+        className={'mapButton' + (isPolygonMode ? ' active' : '')}
+      >
+        Draw polygon
+      </button>
 
-      <button onClick={setMarkerMode}>Add marker</button>
+      <button
+        onClick={setMarkerMode}
+        className={'mapButton' + (isPolygonMode ? '' : ' active')}
+      >
+        Add marker
+      </button>
     </div>
   );
 }

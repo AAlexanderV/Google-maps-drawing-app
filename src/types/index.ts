@@ -1,6 +1,9 @@
 export type Position = google.maps.LatLngLiteral;
 
-export type PositionStringified = { lat: string; lng: string };
+export type InputPosition = {
+  lat?: string | number;
+  lng?: string | number;
+};
 
 export type OverlayGeometry = google.maps.Marker | google.maps.Polygon;
 

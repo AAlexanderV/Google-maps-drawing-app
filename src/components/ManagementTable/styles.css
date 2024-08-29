@@ -1,31 +1,76 @@
 .ManagementTable-container {
   width: 50%;
-
-  background-color: rgba(255, 228, 196, 0.349);
+  background-color: #fff;
+  padding: 20px;
 }
 
 .ManagementHeader-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 20px 0;
 }
 
 .buttonsContainer {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
 }
 
 .navButton {
+  position: relative;
+  margin-right: 20px;
+  padding: 0;
   color: #3e4970;
   font-size: 20px;
   font-weight: 500;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.navButton::before {
+  content: attr(data-text);
+  visibility: hidden;
+  overflow: hidden;
+  font-weight: 600;
+  display: block;
+  height: 0;
 }
 
 .navButton.active {
   color: #57167e;
   font-weight: 600;
 }
-.navButton.active::after {
+
+.navButton::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #57167e;
+  transition: width 0.5s ease;
 }
-.navButton.active::hover {
+.navButton.active::after {
+  width: 100%;
+}
+
+.addOverlayButton {
+  color: #57167e;
+  font-weight: 500;
+  font-size: 16px;
+  border: 1px solid #57167e;
+  background-color: #fff;
+  border-radius: 8px;
+  height: 40px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.addOverlayButton:hover {
+  background-color: #57167e33;
 }

@@ -1,4 +1,4 @@
-import { Position, PositionStringified, Snapshot } from '../../../types';
+import { Position, InputPosition, Snapshot } from '../../../types';
 
 export const getDefaultCoords = () => ({ lat: '', lng: '' });
 
@@ -22,29 +22,32 @@ export function extractCoordinates(snapshot: Snapshot) {
   }
 }
 
-export function validateDraft(
-  isPolygon: boolean,
-  points: PositionStringified[],
-) {
-  if (isPolygon && (points.length < 3 || !checkEachPairIsNonEmpty(points))) {
+export function validateDraft(isPolygon: boolean, points?: InputPosition[]) {
+  if (
+    !points ||
+    (isPolygon && points.length < 3) ||
+    !checkEachPairIsNonEmpty(points)
+  ) {
     return false;
   }
+
+  const nonEmptyPoints = points.filter((point) => !!point.lat && !!point.lng);
+
+  if (nonEmptyPoints.length <= 0) return false;
 
   const MAX_LAT = 90;
   const MAX_LNG = 180;
 
   // lat range -90° до +90°
   // lng range -180° до +180°
-  return points
-    .filter((point) => !!point.lat && !!point.lng)
-    .every(
-      (sp) =>
-        Math.abs(Number(sp.lat)) <= MAX_LAT &&
-        Math.abs(Number(sp.lng)) <= MAX_LNG,
-    );
+  return nonEmptyPoints.every(
+    (point) =>
+      Math.abs(Number(point.lat)) <= MAX_LAT &&
+      Math.abs(Number(point.lng)) <= MAX_LNG,
+  );
 }
 
-function checkEachPairIsNonEmpty(points: PositionStringified[]) {
+function checkEachPairIsNonEmpty(points: InputPosition[]) {
   let result = true;
 
   points.forEach((point) => {
@@ -57,8 +60,8 @@ function checkEachPairIsNonEmpty(points: PositionStringified[]) {
   return result;
 }
 
-export function covertDraftPointsToNumberCoordinates(
-  points: PositionStringified[],
+export function covertDraftInputsToNumberCoordinates(
+  points: InputPosition[],
 ): Position[] {
   return points.map((point) => ({
     lat: Number(point.lat),

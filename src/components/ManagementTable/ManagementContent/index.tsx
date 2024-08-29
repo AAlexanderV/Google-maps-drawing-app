@@ -1,5 +1,4 @@
 import { ManagementTableState } from '..';
-import './styles.css';
 import {
   useDispatchOverlays,
   useMarkers,
@@ -7,6 +6,7 @@ import {
 } from '../../../context/MapOverlaysContext';
 import ContentRow from './ContentRow';
 import DraftRow from './DraftRow';
+import './styles.css';
 
 type Props = {
   managementTableState: ManagementTableState;

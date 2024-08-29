@@ -26,7 +26,7 @@ export const DrawingManagerContextProvider = (props: Props) => {
     const newDrawingManager = new drawing.DrawingManager({
       map,
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
+      drawingControl: false,
       drawingControlOptions: {
         position: google.maps.ControlPosition.BOTTOM_CENTER,
         drawingModes: [
@@ -36,6 +36,8 @@ export const DrawingManagerContextProvider = (props: Props) => {
       },
       markerOptions: {
         draggable: false,
+        clickable: true,
+        cursor: 'pointer',
       },
 
       polygonOptions: {
