@@ -21,26 +21,23 @@ export default function ManagementContent({ managementTableState }: Props) {
 
   return (
     <div className="ManagementContent-container">
-      <table className="triangle-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Coordinates</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {dataToShow.map((item, index) => (
-            <ContentRow
-              overlay={item}
-              dispatchOverlays={dispatchOverlays}
-              key={index}
-            />
-          ))}
+      <div className="header-container row-container">
+        <div className="row-item name">Name</div>
+        <div className="row-item coordinates">Coordinates</div>
+        <div className="row-item action">Action</div>
+      </div>
 
-          <DraftRow {...{ isPolygonMode, dispatchOverlays }} />
-        </tbody>
-      </table>
+      <div className="content-container">
+        {dataToShow.map((item, index) => (
+          <ContentRow
+            overlay={item}
+            dispatchOverlays={dispatchOverlays}
+            key={index}
+          />
+        ))}
+
+        <DraftRow {...{ isPolygonMode, dispatchOverlays }} />
+      </div>
     </div>
   );
 }

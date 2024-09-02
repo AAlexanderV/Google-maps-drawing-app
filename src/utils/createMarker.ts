@@ -2,6 +2,7 @@ import { Action, DrawingActionKind, DrawResult, Position } from '../types';
 
 export function createMarker(
   [position]: Position[],
+  title: string,
   dispatch: React.Dispatch<Action>,
 ) {
   const marker = new google.maps.Marker({
@@ -15,7 +16,7 @@ export function createMarker(
     overlay: marker,
   };
 
-  dispatch({ type: DrawingActionKind.SET_OVERLAY, payload: result });
+  dispatch({ type: DrawingActionKind.SET_OVERLAY, title, payload: result });
 
   return marker;
 }

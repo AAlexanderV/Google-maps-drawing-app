@@ -15,8 +15,6 @@ export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
   const { markerDraft, polygonDraft, setPolygonDraft, setMarkerDraft } =
     useDraftManager();
 
-  const map = useMap();
-
   const isDraftEmpty: boolean = isPolygonMode ? !polygonDraft : !markerDraft;
 
   console.log('polygonDraft, markerDraft', polygonDraft, markerDraft);
@@ -48,7 +46,11 @@ export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
       ? createPolygon
       : createMarker;
 
-    overlayCreationFunction(appliedDraftPoints, dispatchOverlays);
+    overlayCreationFunction(
+      appliedDraftPoints,
+      appliedDraftName,
+      dispatchOverlays,
+    );
     removeDraft();
   };
 
@@ -57,14 +59,20 @@ export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
   };
 
   return (
-    <tr>
-      <td>
-        <input value={appliedDraftName} onChange={handleNameChange} />
-      </td>
-      <td>
+    <div className="row-container">
+      <div className="row-item name">
+        <input
+          type="text"
+          value={appliedDraftName}
+          onChange={handleNameChange}
+        />
+      </div>
+
+      <div className="row-item coordinates">
         <CoordinatesDraftInput isPolygonMode={isPolygonMode} />
-      </td>
-      <td>
+      </div>
+
+      <td className="row-item action">
         <div>
           <button onClick={handleConfirmDraft} className="confirm-button">
             ✔️
@@ -74,6 +82,6 @@ export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
           </button>
         </div>
       </td>
-    </tr>
+    </div>
   );
 }

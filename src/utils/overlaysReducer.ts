@@ -27,7 +27,7 @@ const overlaysReducer = (state: Overlay[], action: Action): Overlay[] => {
       const { title } = action;
       const { overlay, type } = action.payload;
 
-      const alternateTitle = `${type} # ${state.length}`;
+      const alternateTitle = `${type.charAt(0).toUpperCase() + type.slice(1)} ${state.length + 1}`;
 
       const snapshot: Snapshot = {};
 

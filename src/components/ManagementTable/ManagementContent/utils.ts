@@ -9,15 +9,15 @@ export const getPolygonInitialValue = () =>
 
 export function extractCoordinates(snapshot: Snapshot) {
   if (snapshot.position) {
-    const lat = snapshot.position.lat;
-    const lng = snapshot.position.lng;
+    const lat = snapshot.position.lat.toFixed(4);
+    const lng = snapshot.position.lng.toFixed(4);
 
     return `(${lat}, ${lng})`;
   }
 
   if (snapshot.path) {
     return snapshot.path
-      .map((coord) => `(${coord.lat()}, ${coord.lng()})`)
+      .map((coord) => `(${coord.lat().toFixed(4)}, ${coord.lng().toFixed(4)})`)
       .join(', ');
   }
 }

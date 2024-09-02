@@ -17,6 +17,9 @@ export default function ContentRow({ overlay, dispatchOverlays }: Props) {
     [overlay.snapshot],
   );
 
+  const dotsClassName = showOptions ? 'dots active' : 'dots';
+  const dotClassName = showOptions ? 'dot active' : 'dot';
+
   const toggleOptions = () => {
     setShowOptions((prev) => !prev);
   };
@@ -35,14 +38,20 @@ export default function ContentRow({ overlay, dispatchOverlays }: Props) {
   };
 
   return (
-    <tr>
-      <td>{overlayName}</td>
-      <td>{coordinates}</td>
-      <td>
+    <div className="row-container">
+      <div className="row-item name">
+        <p>{overlayName}</p>
+      </div>
+
+      <div className="row-item coordinates">{coordinates}</div>
+
+      <div className="row-item action">
         <div className="action-menu">
-          <span className="dots" onClick={toggleOptions}>
-            &#x2026;
-          </span>
+          <button className={dotsClassName} onClick={toggleOptions}>
+            {[0, 1, 2].map((_, index) => (
+              <span key={index} className={dotClassName} />
+            ))}
+          </button>
           {showOptions && (
             <div className="options-menu">
               <button onClick={handleEdit}>Edit</button>
@@ -50,7 +59,7 @@ export default function ContentRow({ overlay, dispatchOverlays }: Props) {
             </div>
           )}
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }

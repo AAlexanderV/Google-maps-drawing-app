@@ -2,6 +2,7 @@ import { Action, DrawResult, DrawingActionKind, Position } from '../types';
 
 export function createPolygon(
   paths: Position[],
+  title: string,
   dispatch: React.Dispatch<Action>,
 ) {
   const polygon = new google.maps.Polygon({
@@ -18,7 +19,7 @@ export function createPolygon(
     overlay: polygon,
   };
 
-  dispatch({ type: DrawingActionKind.SET_OVERLAY, payload: result });
+  dispatch({ type: DrawingActionKind.SET_OVERLAY, title, payload: result });
 
   return polygon;
 }
