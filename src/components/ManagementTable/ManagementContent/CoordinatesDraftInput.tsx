@@ -14,6 +14,8 @@ type Props = {
   isPolygonMode: boolean;
 };
 
+const PLACEHOLDER_VALUE = '00.0000';
+
 export default function CoordinatesDraftInput({ isPolygonMode }: Props) {
   const { polygonDraft, markerDraft, setPolygonDraft, setMarkerDraft } =
     useDraftManager();
@@ -41,6 +43,21 @@ export default function CoordinatesDraftInput({ isPolygonMode }: Props) {
     : setMarkerPointsInput;
 
   const appliedDraftSetter = isPolygonMode ? setPolygonDraft : setMarkerDraft;
+
+  const draftPointsCount: number = appliedDraft?.points?.length ?? 0;
+  const buttonText =
+    draftPointsCount > 0
+      ? `${draftPointsCount} ${isPolygonMode ? 'points' : 'point'}`
+      : 'add point';
+
+  const buttonAccordionToggleClass =
+    'button-accordion-toggle' + (isAccordionVisible ? ' active' : '');
+
+  const accordionToggleArrowClass =
+    'accordion-toggle-arrow' + (isAccordionVisible ? ' up' : '');
+
+  const accordionWrapperClass =
+    'accordion-wrapper' + (isAccordionVisible ? ' isVisible' : '');
 
   const handleInputChange = (
     index: number,
@@ -92,41 +109,39 @@ export default function CoordinatesDraftInput({ isPolygonMode }: Props) {
 
   return (
     <div className="CoordinatesDraftInput-container">
-      <button
-        onClick={toggleAccordion}
-        className="button-accordion-toggle"
-      >{`${appliedDraft?.points?.length ?? 0} points`}</button>
-      <div
-        className={
-          'accordion-wrapper' + (isAccordionVisible ? ' isVisible' : '')
-        }
-      >
+      <div onClick={toggleAccordion} className={buttonAccordionToggleClass}>
+        <p>{buttonText}</p>
+
+        <div className={accordionToggleArrowClass} />
+      </div>
+
+      <div className={accordionWrapperClass}>
         <div className="accordion-content">
           {appliedPointsInputs.map((point, index) => (
-            <div className="point-row" key={index}>
-              <div className="drag-handle">::</div>
-              <input
-                className="coordinate-input"
-                type="number"
-                value={point.lat}
-                onChange={(e) =>
-                  handleInputChange(index, 'lat', e.target.value)
-                }
-              />
-              <input
-                className="coordinate-input"
-                type="number"
-                value={point.lng}
-                onChange={(e) =>
-                  handleInputChange(index, 'lng', e.target.value)
-                }
-              />
-              <button
-                className="remove-button"
+            <div className="draft-point-row" key={index}>
+              <div className="draft-coordinates-container">
+                <input
+                  className="coordinate-input"
+                  value={point.lat}
+                  placeholder={PLACEHOLDER_VALUE}
+                  onChange={(e) =>
+                    handleInputChange(index, 'lat', e.target.value)
+                  }
+                />
+                <input
+                  className="coordinate-input"
+                  value={point.lng}
+                  placeholder={PLACEHOLDER_VALUE}
+                  onChange={(e) =>
+                    handleInputChange(index, 'lng', e.target.value)
+                  }
+                />
+              </div>
+
+              <div
+                className="square-button remove"
                 onClick={() => handleRemovePoint(index)}
-              >
-                ✖️
-              </button>
+              />
             </div>
           ))}
 

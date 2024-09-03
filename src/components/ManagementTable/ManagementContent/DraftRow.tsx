@@ -2,7 +2,6 @@ import { Action } from '../../../types';
 import { useDraftManager } from '../../../context/DraftContext';
 import CoordinatesDraftInput from './CoordinatesDraftInput';
 import { createPolygon } from '../../../utils/createPolygon';
-import { useMap } from '@vis.gl/react-google-maps';
 import { createMarker } from '../../../utils/createMarker';
 import './styles.css';
 
@@ -59,7 +58,7 @@ export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
   };
 
   return (
-    <div className="row-container">
+    <div className="row-container draft">
       <div className="row-item name">
         <input
           type="text"
@@ -72,16 +71,10 @@ export default function DraftRow({ isPolygonMode, dispatchOverlays }: Props) {
         <CoordinatesDraftInput isPolygonMode={isPolygonMode} />
       </div>
 
-      <td className="row-item action">
-        <div>
-          <button onClick={handleConfirmDraft} className="confirm-button">
-            ✔️
-          </button>
-          <button onClick={removeDraft} className="close-button">
-            ❌
-          </button>
-        </div>
-      </td>
+      <div className="row-item action">
+        <div className="square-button confirm" onClick={handleConfirmDraft} />
+        <div className="square-button remove" onClick={removeDraft} />
+      </div>
     </div>
   );
 }

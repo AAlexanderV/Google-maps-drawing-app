@@ -12,7 +12,12 @@
   border-bottom: 1px solid #d5d6e3;
 }
 
+.row-container.draft {
+  background-color: #f1daff;
+}
+
 .row-item {
+  height: 40px;
   color: #253057;
   font-weight: 500;
   display: flex;
@@ -54,7 +59,8 @@
 
 .row-item.name input {
   width: 100%;
-  border: 2px solid #5b2a82;
+  height: 40px;
+  border: 2px solid transparent;
   border-radius: 8px;
   padding: 8px 12px;
   color: #253057;
@@ -79,7 +85,8 @@
   min-width: 80px;
   text-align: center;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -148,26 +155,150 @@
 
 /* CoordinatesDraftInput */
 .CoordinatesDraftInput-container {
+  width: 100%;
   position: relative;
 }
 
 .button-accordion-toggle {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0 15px 0 10px;
+}
+
+.button-accordion-toggle p {
+  margin: 0;
+  margin-bottom: 3px;
+}
+
+.button-accordion-toggle.active {
+  border: 2px solid #57167e;
+}
+
+.accordion-toggle-arrow {
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #253057;
+  border-bottom: 2px solid #253057;
+  transform: rotate(-45deg) translateY(-2.5px);
+
+  transform-origin: center center;
+
+  transition: all 0.4s ease-in-out;
+}
+
+.accordion-toggle-arrow.up {
+  transform: rotate(135deg) translateY(-2.5px);
 }
 
 .accordion-wrapper {
+  width: 100%;
   position: absolute;
-  top: 30px;
+  top: 120%;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
+  transition: max-height 0.4s ease-in-out;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px #25305745;
 }
 
 .accordion-wrapper.isVisible {
   max-height: 500px;
-  transition: max-height 0.2s ease-in;
+  transition: max-height 0.4s ease-in-out;
 }
 
 .accordion-content {
   padding: 10px 20px;
   background-color: #fff;
 }
+
+.draft-point-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  height: 40px;
+}
+
+.draft-coordinates-container {
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+}
+
+.draft-point-row input {
+  width: 50%;
+  height: 40px;
+  border-radius: 8px;
+  margin-right: 10px;
+  padding: 8px 12px;
+  outline: none;
+  border: 1px solid transparent;
+
+  border-color: #d5d6e3;
+  color: #717ca3;
+}
+
+.draft-point-row input:focus {
+  border-color: #5b2a82;
+  color: #253057;
+}
+
+/* button with a remove or confirm ->*/
+.square-button {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #57167e;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.square-button:before,
+.square-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 1px;
+  transform-origin: center;
+}
+
+/* remove */
+.square-button.remove:before,
+.square-button.remove:after {
+  width: 16px;
+  background-color: #57167e;
+}
+
+.square-button.remove:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.square-button.remove:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* confirm */
+.square-button.confirm {
+  background-color: #57167e;
+}
+
+.square-button.confirm:before {
+  left: 25%;
+  transform-origin: left top;
+
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  width: 12px;
+  height: 6px;
+  transform: rotate(-45deg);
+}
+
+/* button with a remove or confirm <--*/
