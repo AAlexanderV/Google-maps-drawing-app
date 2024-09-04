@@ -22,7 +22,9 @@ export default function ManagementContent({ managementTableState }: Props) {
   return (
     <div className="ManagementContent-container">
       <div className="header-container row-container">
-        <div className="row-item name">Name</div>
+        <div className="row-item name">
+          <p>Name</p>
+        </div>
         <div className="row-item coordinates">Coordinates</div>
         <div className="row-item action">Action</div>
       </div>

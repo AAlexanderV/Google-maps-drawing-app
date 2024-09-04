@@ -17,7 +17,7 @@
 }
 
 .row-item {
-  height: 40px;
+  min-height: 40px;
   color: #253057;
   font-weight: 500;
   display: flex;
@@ -78,6 +78,10 @@
 .row-item.coordinates {
   width: 80%;
   padding: 0 15px;
+}
+
+.row-item.coordinates p {
+  margin: 0;
 }
 
 .row-item.action {
@@ -302,3 +306,21 @@
 }
 
 /* button with a remove or confirm <--*/
+
+/* MEDIA */
+@media (max-width: 1024px) {
+  .row-item.name {
+    width: 25%;
+    min-width: 100px;
+  }
+
+  .row-item.coordinates p {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .row-item.action {
+    min-width: 64px;
+    justify-content: center;
+  }
+}

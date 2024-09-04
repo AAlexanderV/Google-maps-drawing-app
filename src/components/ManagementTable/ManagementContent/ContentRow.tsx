@@ -43,7 +43,9 @@ export default function ContentRow({ overlay, dispatchOverlays }: Props) {
         <p>{overlayName}</p>
       </div>
 
-      <div className="row-item coordinates">{coordinates}</div>
+      <div className="row-item coordinates">
+        <p>{coordinates}</p>
+      </div>
 
       <div className="row-item action">
         <div className="action-menu">

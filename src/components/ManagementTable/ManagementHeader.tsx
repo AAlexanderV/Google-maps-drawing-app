@@ -31,7 +31,7 @@ export default function ManagementHeader({
 
   return (
     <div className="ManagementHeader-container">
-      <div className="buttonsContainer">
+      <div className="nav-buttons-container">
         <button
           className={polygonsButtonClassName}
           onClick={() => setManagementState(ManagementTableState.POLYGON)}
@@ -49,7 +49,7 @@ export default function ManagementHeader({
         </button>
       </div>
 
-      <div className="buttonsContainer">
+      <div className="add-button-container">
         {isPolygonMode ? (
           <button
             onClick={createInitialPolygonDraft}

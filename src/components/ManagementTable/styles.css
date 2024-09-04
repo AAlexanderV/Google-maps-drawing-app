@@ -12,10 +12,17 @@
   padding: 20px 0;
 }
 
-.buttonsContainer {
+.nav-buttons-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.add-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  min-width: 150px;
 }
 
 .navButton {
@@ -73,4 +80,33 @@
 
 .addOverlayButton:hover {
   background-color: #57167e33;
+}
+
+/* MEDIA */
+@media (max-width: 1300px) {
+  .nav-buttons-container {
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ManagementTable-container {
+    padding: 10px;
+  }
+
+  .ManagementHeader-container {
+    flex-direction: column;
+  }
+
+  .nav-buttons-container {
+    max-width: 100%;
+    margin-bottom: 40px;
+    justify-content: space-evenly;
+  }
+
+  .navButton {
+    max-width: 120px;
+    margin-right: 0px;
+    font-size: 18px;
+  }
 }
