@@ -110,3 +110,10 @@
     font-size: 18px;
   }
 }
+
+@media (max-width: 900px) {
+  .ManagementTable-container {
+    width: 100%;
+    padding-top: 50px;
+  }
+}

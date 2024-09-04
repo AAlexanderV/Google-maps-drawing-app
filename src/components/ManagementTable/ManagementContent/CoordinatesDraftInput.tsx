@@ -103,7 +103,6 @@ export default function CoordinatesDraftInput({ isPolygonMode }: Props) {
   };
 
   const handleCancelCoordinates = () => {
-    // rest coords to draft values and close
     setIsAccordionVisible(false);
   };
 

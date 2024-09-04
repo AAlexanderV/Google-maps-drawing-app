@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { APIProvider } from '@vis.gl/react-google-maps';
+import { ScreenModeContextProvider } from './context/ScreenModeContext';
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY ?? '';
 
@@ -13,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <APIProvider apiKey={API_KEY}>
-      <App />
+      <ScreenModeContextProvider>
+        <App />
+      </ScreenModeContextProvider>
     </APIProvider>
   </React.StrictMode>,
 );

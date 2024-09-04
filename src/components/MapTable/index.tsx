@@ -7,9 +7,11 @@ import {
 } from '../../constants/mapDefaults';
 import { useDrawingManager } from '../../context/DrawingManagerContext';
 import './styles.css';
+import { useIsMobile } from '../../context/ScreenModeContext';
 
 export default function MapTable() {
   const drawingManager = useDrawingManager();
+  const isMobile = useIsMobile();
 
   return (
     <div className="MapTable-container">
@@ -18,7 +20,7 @@ export default function MapTable() {
         defaultZoom={DEFAULT_ZOOM}
         defaultCenter={DEFAULT_LOCATION}
         gestureHandling={'greedy'}
-        disableDefaultUI={false}
+        disableDefaultUI={isMobile}
         mapTypeId={DEFAULT_MAP_MODE}
       />
 
