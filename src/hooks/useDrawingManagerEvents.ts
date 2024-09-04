@@ -38,33 +38,16 @@ export function useDrawingManagerEvents(
       'overlaycomplete',
       (drawResult: DrawResult) => {
         switch (drawResult.type) {
-          case google.maps.drawing.OverlayType.CIRCLE:
-            // TODO: delete???
-            ['center_changed', 'radius_changed'].forEach((eventName) =>
-              addUpdateListener(eventName, drawResult),
-            );
-            break;
-
-          // TODO: delete???
           case google.maps.drawing.OverlayType.MARKER:
             ['dragend'].forEach((eventName) =>
               addUpdateListener(eventName, drawResult),
             );
-
             break;
 
           case google.maps.drawing.OverlayType.POLYGON:
             ['mouseup'].forEach((eventName) =>
               addUpdateListener(eventName, drawResult),
             );
-            break;
-
-          // TODO: delete???
-          case google.maps.drawing.OverlayType.RECTANGLE:
-            ['bounds_changed', 'dragstart', 'dragend'].forEach((eventName) =>
-              addUpdateListener(eventName, drawResult),
-            );
-
             break;
         }
 
