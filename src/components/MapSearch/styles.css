@@ -1,0 +1,53 @@
+.MapSearch-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3e4970;
+  padding: 25px;
+}
+
+.search {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input_box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 56px;
+  background: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  border-radius: 5px;
+}
+
+.search_city-text {
+  width: 80%;
+  background-color: transparent;
+  border: none;
+  margin-left: 12px;
+  color: #253057;
+  word-wrap: break-word;
+  outline: none;
+  height: 34px;
+  font-size: 16px;
+}
+
+.search_city-submit {
+  height: 24px;
+  width: 24px;
+  margin-left: 12px;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+.search_city-submit path {
+  fill: #717ca3;
+}

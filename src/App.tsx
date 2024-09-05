@@ -4,6 +4,7 @@ import { DrawingManagerContextProvider } from './context/DrawingManagerContext';
 import { MapOverlaysContextProvider } from './context/MapOverlaysContext';
 import { useIsDrawingMode, useIsMobile } from './context/ScreenModeContext';
 import './App.css';
+import { SearchContextProvider } from './context/SearchContext';
 
 export default function App() {
   const isMobile = useIsMobile();
@@ -15,8 +16,10 @@ export default function App() {
   return (
     <DrawingManagerContextProvider>
       <MapOverlaysContextProvider>
-        {showMapTable && <MapTable />}
-        {showManagementTable && <ManagementTable />}
+        <SearchContextProvider>
+          {showMapTable && <MapTable />}
+          {showManagementTable && <ManagementTable />}
+        </SearchContextProvider>
       </MapOverlaysContextProvider>
     </DrawingManagerContextProvider>
   );

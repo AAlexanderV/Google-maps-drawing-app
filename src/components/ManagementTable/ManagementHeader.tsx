@@ -1,5 +1,6 @@
 import { ManagementTableState } from '.';
 import { useDraftManager } from '../../context/DraftContext';
+import MapSearch from '../MapSearch';
 import './styles.css';
 
 type Props = {

@@ -27,6 +27,8 @@ export default function MapTable() {
       <MapControl position={ControlPosition.BOTTOM_CENTER}>
         <DrawingModeSwitchComponent drawingManager={drawingManager} />
       </MapControl>
+
+      {/* <MapHandler place={selectedPlace} /> */}
     </div>
   );
 }

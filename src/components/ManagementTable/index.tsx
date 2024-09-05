@@ -1,8 +1,9 @@
-import './styles.css';
 import { useState } from 'react';
 import ManagementHeader from './ManagementHeader';
 import ManagementContent from './ManagementContent';
 import { DraftContextProvider } from '../../context/DraftContext';
+import MapSearch from '../MapSearch';
+import './styles.css';
 
 export enum ManagementTableState {
   POLYGON = 'POLYGON',
@@ -15,9 +16,13 @@ export default function ManagementTable() {
 
   return (
     <div className="ManagementTable-container">
+      <MapSearch />
+
       <DraftContextProvider>
-        <ManagementHeader {...{ managementTableState, setManagementState }} />
-        <ManagementContent {...{ managementTableState }} />
+        <div className="header-content-wrapper">
+          <ManagementHeader {...{ managementTableState, setManagementState }} />
+          <ManagementContent {...{ managementTableState }} />
+        </div>
       </DraftContextProvider>
     </div>
   );
