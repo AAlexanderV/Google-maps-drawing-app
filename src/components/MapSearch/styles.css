@@ -51,3 +51,9 @@
 .search_city-submit path {
   fill: #717ca3;
 }
+
+@media (max-width: 900px) {
+  .MapSearch-container {
+    padding-top: 60px;
+  }
+}
